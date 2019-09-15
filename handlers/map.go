@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"regexp"
 	"strings"
@@ -18,7 +17,6 @@ func Map(c Config, client *storage.Client) http.Handler {
 	logger := c.Logger()
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
-		fmt.Println("URL:", r.URL)
 		if r.Method != http.MethodGet {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 			return
@@ -37,7 +35,8 @@ func Map(c Config, client *storage.Client) http.Handler {
 		m, err := mapper.Map(r.Context(), vodmodule.MapOptions{
 			Prefix:        prefix,
 			Filter:        filter,
-			ProxyEndpoint: fmt.Sprintf("http://127.0.0.1%s%s", c.Listen, c.Proxy.Endpoint),
+			ProxyEndpoint: c.Proxy.Endpoint,
+			ProxyListen:   c.Listen,
 			ChapterBreaks: chapterBreaks,
 		})
 		if err != nil {
