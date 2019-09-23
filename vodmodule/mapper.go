@@ -115,14 +115,14 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 }
 
 func (m *Mapper) getLanguage(name string) string {
-	if strings.HasSuffix(name, ".mp3") {
+	if strings.HasSuffix(name, ".mp3") || strings.HasSuffix(name, ".vtt") {
 		filename := strings.TrimSuffix(name, filepath.Ext(name))
 		slicedFilename := strings.Split(filename, "_")
 		language := strings.ToLower(slicedFilename[len(slicedFilename)-1])
 		fmt.Println("filename ", filename, "language", language)
 		return language
 	}
-	return ""
+	return "eng"
 }
 
 func (m *Mapper) chapterBreaksToDurations(ctx context.Context, chapterBreaks string, proxyListen string, endpoint string, prefix string) ([]int, error) {
