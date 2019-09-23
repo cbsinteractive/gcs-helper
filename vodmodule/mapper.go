@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"path"
+	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
@@ -79,6 +80,7 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 							Type:     "source",
 							Path:     proxyEndpoint + "/" + obj.Name,
 							ClipFrom: previousDuration,
+							Language: m.getLanguage(obj.Name),
 						}
 						if i != len(durations)-1 {
 							clip.ClipTo = durations[i] + previousDuration
@@ -92,8 +94,9 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 					sequence := Sequence{
 						Clips: []Clip{
 							{
-								Type: "source",
-								Path: proxyEndpoint + "/" + obj.Name,
+								Type:     "source",
+								Path:     proxyEndpoint + "/" + obj.Name,
+								Language: m.getLanguage(obj.Name),
 							},
 						},
 					}
@@ -106,6 +109,17 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 		}
 	}
 	return nil, err
+}
+
+func (m *Mapper) getLanguage(name string) string {
+	if strings.HasSuffix(name, ".mp3") {
+		filename := strings.TrimSuffix(name, filepath.Ext(name))
+		slicedFilename := strings.Split(filename, "_")
+		language := strings.ToLower(slicedFilename[len(slicedFilename)-1])
+		fmt.Println("filename ", filename, "language", language)
+		return language
+	}
+	return ""
 }
 
 func (m *Mapper) chapterBreaksToDurations(ctx context.Context, chapterBreaks string, proxyListen string, endpoint string, prefix string) ([]int, error) {

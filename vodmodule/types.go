@@ -20,4 +20,5 @@ type Clip struct {
 	Path     string `json:"path"`
 	ClipFrom int    `json:"clipFrom,omitempty"`
 	ClipTo   int    `json:"clipTo,omitempty"`
+	Language string `json:"language,omitempty"`
 }
