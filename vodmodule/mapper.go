@@ -115,7 +115,7 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 }
 
 func (m *Mapper) getLanguage(name string) string {
-	if strings.HasSuffix(name, ".mp3") || strings.HasSuffix(name, ".vtt") {
+	if strings.HasSuffix(name, ".mp4") || strings.HasSuffix(name, ".vtt") {
 		filename := strings.TrimSuffix(name, filepath.Ext(name))
 		slicedFilename := strings.Split(filename, "_")
 		language := strings.ToLower(slicedFilename[len(slicedFilename)-1])
