@@ -80,7 +80,6 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 							Type:     "source",
 							Path:     proxyEndpoint + "/" + obj.Name,
 							ClipFrom: previousDuration,
-							Language: m.getLanguage(obj.Name),
 						}
 						if i != len(durations)-1 {
 							clip.ClipTo = durations[i] + previousDuration
@@ -88,17 +87,21 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 						clips = append(clips, clip)
 						previousDuration = durations[i] + previousDuration
 					}
-					sequence := Sequence{Clips: clips}
+					sequence := Sequence{
+						Clips:    clips,
+						Language: m.getLanguage(obj.Name),
+					}
+
 					seqs = append(seqs, sequence)
 				} else {
 					sequence := Sequence{
 						Clips: []Clip{
 							{
-								Type:     "source",
-								Path:     proxyEndpoint + "/" + obj.Name,
-								Language: m.getLanguage(obj.Name),
+								Type: "source",
+								Path: proxyEndpoint + "/" + obj.Name,
 							},
 						},
+						Language: m.getLanguage(obj.Name),
 					}
 					seqs = append(seqs, sequence)
 				}

@@ -11,6 +11,7 @@ type Mapping struct {
 // Sequence represents a list of media clips.
 type Sequence struct {
 	Clips             []Clip `json:"clips"`
+	Language          string `json:"language,omitempty"`
 	KeyFrameDurations []int  `json:"keyFrameDurations,omitempty"`
 }
 
@@ -20,5 +21,4 @@ type Clip struct {
 	Path     string `json:"path"`
 	ClipFrom int    `json:"clipFrom,omitempty"`
 	ClipTo   int    `json:"clipTo,omitempty"`
-	Language string `json:"language,omitempty"`
 }
