@@ -16,9 +16,13 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/StackExchange/wmi v0.0.0-20170410192909-ea383cf3ba6e h1:IHXQQIpxASe3m0Jtcd3XongL+lxHNd5nUmvHxJARUmg=
 github.com/StackExchange/wmi v0.0.0-20170410192909-ea383cf3ba6e/go.mod h1:3eOhrUMpNV+6aFIbp5/iudMxNCF27Vw2OZgy4xEx0Fg=
+github.com/cbsinteractive/mediainfo v0.0.0-20190926154048-0f8185684e6c h1:GepgoqeYad0cTsatthskN30EpMXPfqA2axOsW0QVtdU=
+github.com/cbsinteractive/mediainfo v0.0.0-20190926154048-0f8185684e6c/go.mod h1:o5noHbdxgLHmUFrUEG8Tb1ZeQpSfw4+hFTdYsl7Cefo=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/flavioribeiro/mediainfo v0.0.0-20190915000339-aa0c5c8e6cff h1:jQoPU0iaSeJSw0KeldCZ76wfWPSRMDFBRNC/NIWBKTU=
+github.com/flavioribeiro/mediainfo v0.0.0-20190915000339-aa0c5c8e6cff/go.mod h1:+nzPaDra/awPaFw59FVT7GIeJheFliV2xo2TC4ywH7o=
 github.com/fsouza/fake-gcs-server v1.11.1 h1:QNRMFSUk6SLIZ36oXcdAyyEnEMD6BPdz/clFaXQ/I6o=
 github.com/fsouza/fake-gcs-server v1.11.1/go.mod h1:VkVJOuxotrgw677SU5ag5LeUvGk5xuMUaCxAYa7Grbw=
 github.com/go-ole/go-ole v1.2.1 h1:2lOsA72HgjxAuMlKpFiCbHTvu44PIVkZ5hqm3RSdI/E=
@@ -68,6 +72,8 @@ github.com/keybase/go-ps v0.0.0-20161005175911-668c8856d999 h1:2d+FLQbz4xRTi36DO
 github.com/keybase/go-ps v0.0.0-20161005175911-668c8856d999/go.mod h1:hY+WOq6m2FpbvyrI93sMaypsttvaIL5nhVR92dTMUcQ=
 github.com/konsorten/go-windows-terminal-sequences v1.0.1 h1:mweAR1A6xJ3oS2pRaGiHgQ4OO8tzTaLawm8vnODuwDk=
 github.com/konsorten/go-windows-terminal-sequences v1.0.1/go.mod h1:T0+1ngSBFLxvqU3pZ+m/2kptfBszLMUkC4ZK/EgS/cQ=
+github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
+github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/shirou/gopsutil v0.0.0-20180427012116-c95755e4bcd7 h1:80VN+vGkqM773Br/uNNTSheo3KatTgV8IpjIKjvVLng=

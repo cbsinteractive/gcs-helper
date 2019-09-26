@@ -10,8 +10,7 @@ import (
 	"strings"
 
 	"cloud.google.com/go/storage"
-	"github.com/flavioribeiro/mediainfo"
-	log "github.com/sirupsen/logrus"
+	"github.com/cbsinteractive/mediainfo"
 	"google.golang.org/api/iterator"
 )
 
@@ -138,14 +137,13 @@ func (m *Mapper) chapterBreaksToDurations(ctx context.Context, chapterBreaks str
 		previousTimestamp = chapterBreakInMs
 	}
 
-	logger := log.New()
 	iter := m.bucket.Objects(ctx, &storage.Query{
 		Prefix:    prefix,
 		Delimiter: "/",
 	})
 	obj, _ = iter.Next() // ignoring error for now
 	fileURL := fmt.Sprintf("http://127.0.0.1%s%s/%s", proxyListen, endpoint, obj.Name)
-	mi, _ := mediainfo.New(fileURL, logger, "sample_file")
+	mi, _ := mediainfo.New(fileURL)
 
 	result = append(result, int(mi.General.Duration.Val)-previousTimestamp) // last piece should have all the content
 
