@@ -77,7 +77,7 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 		for ; err == nil; obj, err = iter.Next() {
 			filename := path.Base(obj.Name)
 			if filter == nil || filter.MatchString(filename) {
-				if len(durations) > 0 {
+				if len(durations) > 0 && !bumper {
 					previousDuration := 0
 					clips := []Clip{}
 					for i := range durations {
