@@ -41,6 +41,9 @@ type MapOptions struct {
 
 	// Optional regexp that is used to filter the list of objects.
 	Filter *regexp.Regexp
+
+	// Optional and specific to cbsinteractive case
+	Bumper bool
 }
 
 // Map returns a Mapping object with the list of objects that match the given
@@ -53,12 +56,13 @@ func (m *Mapper) Map(ctx context.Context, opts MapOptions) (Mapping, error) {
 	if opts.ChapterBreaks != "" {
 		r.Durations, _ = m.chapterBreaksToDurations(ctx, opts.ChapterBreaks, opts.ProxyListen, opts.ProxyEndpoint, opts.Prefix)
 	}
-	r.Sequences, err = m.getSequences(ctx, opts.Prefix, opts.Filter, opts.ProxyEndpoint, r.Durations)
+	r.Sequences, err = m.getSequences(ctx, opts.Prefix, opts.Filter, opts.ProxyEndpoint, r.Durations, opts.Bumper)
 	return r, err
 }
 
-func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp.Regexp, proxyEndpoint string, durations []int) ([]Sequence, error) {
+func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp.Regexp, proxyEndpoint string, durations []int, bumper bool) ([]Sequence, error) {
 	var err error
+	fmt.Println("getting sequences, bumper?", bumper)
 	for i := 0; i < maxTries; i++ {
 		iter := m.bucket.Objects(ctx, &storage.Query{
 			Prefix:    prefix,
@@ -91,6 +95,21 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 						Language: m.getLanguage(obj.Name),
 					}
 
+					seqs = append(seqs, sequence)
+				} else if bumper {
+					sequence := Sequence{
+						Clips: []Clip{
+							{
+								Type: "source",
+								Path: proxyEndpoint + "/encodes/bumper.mp4",
+							},
+							{
+								Type: "source",
+								Path: proxyEndpoint + "/" + obj.Name,
+							},
+						},
+						Language: m.getLanguage(obj.Name),
+					}
 					seqs = append(seqs, sequence)
 				} else {
 					sequence := Sequence{

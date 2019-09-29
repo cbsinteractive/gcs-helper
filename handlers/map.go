@@ -27,6 +27,10 @@ func Map(c Config, client *storage.Client) http.Handler {
 				chapterBreaks = val[0]
 			}
 		}
+		bumper := false
+		if _, ok := r.URL.Query()["bumper"]; ok {
+			bumper = true
+		}
 		prefix := strings.TrimLeft(r.URL.Path, "/")
 		if prefix == "" {
 			http.Error(w, "prefix cannot be empty", http.StatusBadRequest)
@@ -38,6 +42,7 @@ func Map(c Config, client *storage.Client) http.Handler {
 			ProxyEndpoint: c.Proxy.Endpoint,
 			ProxyListen:   c.Listen,
 			ChapterBreaks: chapterBreaks,
+			Bumper:        bumper,
 		})
 		if err != nil {
 			logger.WithError(err).WithField("prefix", prefix).Error("failed to map request")
