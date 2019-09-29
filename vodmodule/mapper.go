@@ -114,12 +114,19 @@ func (m *Mapper) getSequences(ctx context.Context, prefix string, filter *regexp
 }
 
 func (m *Mapper) getLanguage(name string) string {
+	validLanguages := map[string]bool{
+		"eng": true,
+		"por": true,
+		"spa": true,
+	}
 	if strings.HasSuffix(name, ".mp4") || strings.HasSuffix(name, ".vtt") {
 		filename := strings.TrimSuffix(name, filepath.Ext(name))
 		slicedFilename := strings.Split(filename, "_")
 		language := strings.ToLower(slicedFilename[len(slicedFilename)-1])
 		fmt.Println("filename ", filename, "language", language)
-		return language
+		if validLanguages[language] {
+			return language
+		}
 	}
 	return "eng"
 }
