@@ -55,6 +55,8 @@ func (m *Mapper) Map(ctx context.Context, opts MapOptions) (Mapping, error) {
 	r := Mapping{}
 	if opts.ChapterBreaks != "" {
 		r.Durations, _ = m.chapterBreaksToDurations(ctx, opts.ChapterBreaks, opts.ProxyListen, opts.ProxyEndpoint, opts.Prefix)
+	} else if opts.Bumper {
+		r.Durations, _ = m.durationsWithBumper(ctx, opts.ProxyListen, opts.ProxyEndpoint, opts.Prefix)
 	}
 	r.Sequences, err = m.getSequences(ctx, opts.Prefix, opts.Filter, opts.ProxyEndpoint, r.Durations, opts.Bumper)
 	return r, err
@@ -150,13 +152,38 @@ func (m *Mapper) getLanguage(name string) string {
 	return "eng"
 }
 
+func (m *Mapper) durationsWithBumper(ctx context.Context, proxyListen string, endpoint string, prefix string) ([]int, error) {
+	var err error
+	var result []int
+	var obj *storage.ObjectAttrs
+
+	// bumper
+	fileURL := fmt.Sprintf("http://127.0.0.1%s%s/%s", proxyListen, endpoint, "encodes/bumper.mp4")
+	fmt.Println("BUMPER FILE -> ", fileURL)
+	mi, _ := mediainfo.New(fileURL)
+	result = append(result, int(mi.General.Duration.Val))
+
+	// actual file
+	iter := m.bucket.Objects(ctx, &storage.Query{
+		Prefix:    prefix,
+		Delimiter: "/",
+	})
+	obj, _ = iter.Next() // ignoring error for now
+
+	fileURL = fmt.Sprintf("http://127.0.0.1%s%s/%s", proxyListen, endpoint, obj.Name)
+	mi, _ = mediainfo.New(fileURL)
+
+	result = append(result, int(mi.General.Duration.Val))
+	return result, err
+}
+
 func (m *Mapper) chapterBreaksToDurations(ctx context.Context, chapterBreaks string, proxyListen string, endpoint string, prefix string) ([]int, error) {
 	var err error
 	var obj *storage.ObjectAttrs
+	var result []int
 
 	previousTimestamp := 0
 	splittedChapterBreaks := strings.Split(chapterBreaks, ",")
-	result := make([]int, 0) // is there something better than this?
 	for i := range splittedChapterBreaks {
 		chapterBreakInMs := m.convertChapterBreakInMs(splittedChapterBreaks[i])
 		result = append(result, chapterBreakInMs-previousTimestamp)
