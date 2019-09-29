@@ -21,8 +21,6 @@ github.com/cbsinteractive/mediainfo v0.0.0-20190926154048-0f8185684e6c/go.mod h1
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/flavioribeiro/mediainfo v0.0.0-20190915000339-aa0c5c8e6cff h1:jQoPU0iaSeJSw0KeldCZ76wfWPSRMDFBRNC/NIWBKTU=
-github.com/flavioribeiro/mediainfo v0.0.0-20190915000339-aa0c5c8e6cff/go.mod h1:+nzPaDra/awPaFw59FVT7GIeJheFliV2xo2TC4ywH7o=
 github.com/fsouza/fake-gcs-server v1.11.1 h1:QNRMFSUk6SLIZ36oXcdAyyEnEMD6BPdz/clFaXQ/I6o=
 github.com/fsouza/fake-gcs-server v1.11.1/go.mod h1:VkVJOuxotrgw677SU5ag5LeUvGk5xuMUaCxAYa7Grbw=
 github.com/go-ole/go-ole v1.2.1 h1:2lOsA72HgjxAuMlKpFiCbHTvu44PIVkZ5hqm3RSdI/E=
